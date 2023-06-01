@@ -11,8 +11,8 @@ router.get('/', async (req, res) => {
       ],
     });
     res.json(tags);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Server Error'});
   }
   // find all tags

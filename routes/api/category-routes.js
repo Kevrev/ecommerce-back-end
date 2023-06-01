@@ -7,8 +7,8 @@ router.get('/', async (req, res) => {
   try {
     const categories = await Category.findAll();
     res.json(categories);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Server Error'});
   }
 });
@@ -38,13 +38,23 @@ router.post('/', async (req, res) => {
     const newCategory = await Category.create(req.body);
     res.json(newCategory);
   } catch (error) {
-    console.log(err);
+    console.log(error);
     res.status(500).json({ message: 'Server Error'});
   }
 });
 
-router.put('/:id', (req, res) => {
-  // update a category by its `id` value
+router.put('/:id', async (req, res) => {
+  try {
+    const updateCategory = await Category.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    return updateCategory > 0 ? res.sendStatus(200) : res.sendStatus(404);
+  } catch (error) {
+    res.status(400).json(error);
+  }
 });
 
 router.delete('/:id', async (req, res) => {

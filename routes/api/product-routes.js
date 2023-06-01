@@ -13,8 +13,8 @@ router.get('/', async (req, res) => {
       ],
     });
     res.json(products);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Server Error'});
   }
 });
@@ -66,9 +66,9 @@ router.post('/', (req, res) => {
       res.status(200).json(product);
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json(error);
     });
 });
 
@@ -109,8 +109,8 @@ router.put('/:id', async (req, res) => {
     }
 
     return res.json(product);
-  } catch (err) {
-    res.status(400).json(err);
+  } catch (error) {
+    res.status(400).json(error);
   }
 });
 
