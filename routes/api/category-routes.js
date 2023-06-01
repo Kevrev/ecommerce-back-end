@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
   try {
     const newCategory = await Category.create(req.body);
     res.json(newCategory);
-  } catch (err) {
+  } catch (error) {
     console.log(err);
     res.status(500).json({ message: 'Server Error'});
   }
@@ -47,8 +47,16 @@ router.put('/:id', (req, res) => {
   // update a category by its `id` value
 });
 
-router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+
+    await Category.destroy({ where: { id: categoryId } });
+    res.json({ message: `Category deleted` });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Server Error'});
+  }
 });
 
 module.exports = router;
